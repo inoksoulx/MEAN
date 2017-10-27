@@ -1,0 +1,36 @@
+ <style type="text/css">
+    .column {
+      max-width: 450px;
+      margin-top: 100px
+    }
+  </style>
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+    <form class="ui large form" ng-submit="loginUser()">
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <input type="text" name="username" placeholder="Username" ng-model='username'>
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <input type="password" name="password" placeholder="Password" ng-model='password'>
+          </div>
+        </div>
+        <input type="submit" class="ui fluid large teal submit button" />
+      </div>
+
+    </form>
+
+    <div class="ui message">
+      New to us? <a href="#!register">Sign Up</a>
+    </div>
+  </div>
+</div>

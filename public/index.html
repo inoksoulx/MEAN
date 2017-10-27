@@ -1,0 +1,30 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+  <meta charset="utf-8">
+  <title>MEAN Auth App</title>
+
+  <link rel="stylesheet" href="css/semantic.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+
+  <ng-view></ng-view>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="scripts/semantic.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script> 
+  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js"></script>
+  <script src="scripts/socket.io.slim.js"></script>
+  <script src="scripts/main.js"></script>  
+  <script src="scripts/service/authService.js"></script>  
+  <script src="scripts/components/home/homeController.js"></script>   
+  <script src="scripts/components/register/registerController.js"></script>   
+  <script src="scripts/components/profile/profileController.js"></script>   
+
+</body>
+
+</html>

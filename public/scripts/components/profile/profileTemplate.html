@@ -1,0 +1,88 @@
+<style type="text/css">
+  .ui.menu .item img.logo {
+    margin-right: 1.5em;
+  }
+  
+  @font-face {
+    font-family: 'Icons';
+    src: url("fonts/icons.eot");
+    src: url("fonts/icons.eot?#iefix") format('embedded-opentype'), url("fonts/icons.woff2") format('woff2'), url("fonts/icons.woff") format('woff'), url("fonts/icons.ttf") format('truetype'), url("fonts/icons.svg#icons") format('svg');
+  }
+  
+  .main.container {
+    margin-top: 7em;
+  }
+  
+  .wireframe {
+    margin-top: 2em;
+  }
+  
+  .ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+  }
+</style>
+
+<div ng-init="onInit()">
+  <div ng-if="!authFlag">
+    <div class="ui dimmer modals page transition visible active" style="display: block !important;">
+      <div class="ui basic modal transition visible active" style="margin-top: -138px; display: block !important;">
+        <div class="ui icon header">
+          <i class="archive icon"></i> You are not authorized
+        </div>
+        <div class="content">
+          <p class="ui center aligned segment" style="background: none">Please, Sign in or Register.</p>
+        </div>
+        <div class="actions">
+          <div class="ui red basic cancel inverted button" ng-click="navToHome($event)">
+            <i class="remove icon"></i>Sign In
+          </div>
+          <div class="ui green ok inverted button" ng-click="navToRegister($event)">
+            <i class="checkmark icon"></i>Register
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="authFlag" style="margin: 5px 0 15px 15px">
+    <div class="ui secondary pointing menu">
+      <a class="item active">
+    Home
+  </a>
+      <a class="item">
+    Messages
+  </a>
+      <a class="item">
+    Friends
+  </a>
+      <div class="right menu">
+        <a class="ui item" ng-click="logOut($event)">
+      Logout
+    </a>
+      </div>
+    </div>
+    <div class="ui items grid center aligned">
+      <div class="item" style="max-width: 960px">
+        <div class="ui small circular image">
+          <img class="ui small circular image" src="https://randomuser.me/api/portraits/lego/0.jpg">
+        </div>
+        <div class="content">
+          <p class="header">{{user.name}}, e-mail: {{user.email}}</p>
+          <div class="meta">
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum in optio numquam earum voluptatibus, ut id molestias officiis dolores nulla quas. Cupiditate error recusandae neque, iure hic vel voluptate praesentium!</span>
+          </div>
+          <div class="description">
+            <p></p>
+          </div>
+          <div class="extra">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid, atque esse maxime facilis fuga delectus quas totam laboriosam eum exercitationem? Unde doloremque placeat ad vero hic non nostrum illo.
+          </div>
+        </div>
+      </div>
+      <div class="segment content">
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
