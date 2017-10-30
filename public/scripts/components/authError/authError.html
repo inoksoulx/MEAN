@@ -1,0 +1,27 @@
+<style>
+  @font-face {
+    font-family: 'Icons';
+    src: url("fonts/icons.eot");
+    src: url("fonts/icons.eot?#iefix") format('embedded-opentype'), url("fonts/icons.woff2") format('woff2'), url("fonts/icons.woff") format('woff'), url("fonts/icons.ttf") format('truetype'), url("fonts/icons.svg#icons") format('svg');
+  }
+</style>
+
+
+<div class="ui dimmer modals page transition visible active" style="display: block !important;">
+  <div class="ui basic modal transition visible active" style="margin-top: -138px; display: block !important;">
+    <div class="ui icon header">
+      <i class="archive icon"></i> You are not authorized
+    </div>
+    <div class="content">
+      <p class="ui center aligned segment" style="background: none">Please, Sign in or Register.</p>
+    </div>
+    <div class="actions">
+      <div class="ui red basic cancel inverted button" ng-click="navToHome($event)">
+        <i class="remove icon"></i>Sign In
+      </div>
+      <div class="ui green ok inverted button" ng-click="navToRegister($event)">
+        <i class="checkmark icon"></i>Register
+      </div>
+    </div>
+  </div>
+</div>

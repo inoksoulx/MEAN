@@ -1,11 +1,11 @@
-app.factory('AuthService', function ($http) {
+app.factory("AuthService", function($http) {
   return {
-    registerUser: function (user, cb) {
+    registerUser: function(user, cb) {
       var req = {
-        method: 'POST',
-        url: 'users/register',
+        method: "POST",
+        url: "users/register",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
         data: user
       };
@@ -13,12 +13,12 @@ app.factory('AuthService', function ($http) {
       return $http(req).then(cb);
     },
 
-    loginUser: function (user, cb) {
+    loginUser: function(user, cb) {
       var req = {
-        method: 'POST',
-        url: 'users/authenticate',
+        method: "POST",
+        url: "users/authenticate",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         },
         data: user
       };
@@ -26,34 +26,52 @@ app.factory('AuthService', function ($http) {
       return $http(req).then(cb);
     },
 
-    loadToken: function () {
-      var token = localStorage.getItem('_id.token');
+    loadToken: function() {
+      var token = localStorage.getItem("_id.token");
       this.authToken = token;
     },
 
-    getUser: function (successCb, errorCb) {
+    getUser: function(successCb, errorCb) {
       this.loadToken();
 
       headers = {
-        'Authorization': this.authToken
-      }
-      
-      return $http.get('users/profile', { headers: headers }).then(successCb, errorCb)
+        Authorization: this.authToken
+      };
+
+      return $http
+        .get("users/profile", { headers: headers })
+        .then(successCb, errorCb);
     },
 
-    storeDataUser: function (token, user) {
-      localStorage.setItem('_id.token', token);
-      localStorage.setItem('user', JSON.stringify(user));
+    storeDataUser: function(token, user) {
+      localStorage.setItem("_id.token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
       this.authToken = token;
       this.user = user;
     },
 
-    logOut: function () {
-      this.authToken = null;
-      this.user = null;
+    logOut: function(id) {
+      var _this = this;
+      var _id = id;
 
-      localStorage.clear();
+      var req = {
+        method: "POST",
+        url: "users/logout",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: {
+          id: _id
+        }
+      };
+
+      $http(req).then(function() {
+        _this.authToken = null;
+        _this.user = null;
+
+        localStorage.clear();
+      });
     }
-  }
-})
+  };
+});

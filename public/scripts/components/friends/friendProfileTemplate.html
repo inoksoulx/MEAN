@@ -1,0 +1,35 @@
+<div class="ui secondary pointing menu">
+  <a class="item active">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item" ng-click="pathToFriens($event)">
+    Friends
+  </a>
+  <div class="right menu">
+    <a class="ui item" ng-click="logOut($event)">
+      Logout
+    </a>
+  </div>
+</div>
+<div class="ui items grid">
+  <div class="item" style="max-width: 700px">
+    <div class="ui small circular image">
+      <img class="ui small circular image" src="https://randomuser.me/api/portraits/lego/0.jpg">
+    </div>
+    <div class="content">
+      <p class="header">{{user.name}}, e-mail: {{user.email}}</p>
+      <div class="meta">
+        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum in optio numquam earum voluptatibus, ut id molestias officiis dolores nulla quas. Cupiditate error recusandae neque, iure hic vel voluptate praesentium!</span>
+      </div>
+      <div class="description">
+        <p></p>
+      </div>
+      <div class="extra">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid, atque esse maxime facilis fuga delectus quas totam laboriosam eum exercitationem? Unde doloremque placeat ad vero hic non nostrum illo.
+      </div>
+    </div>
+  </div>
+</div>

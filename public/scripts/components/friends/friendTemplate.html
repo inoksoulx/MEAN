@@ -1,0 +1,48 @@
+<style>
+  .online:after {
+    content: '';
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-color: greenyellow;
+    border-radius: 50%;
+    top: -8px;
+    right: -8px; 
+  }
+</style>
+
+<div class="ui secondary pointing menu" style="margin: 5px 0 15px 15px">
+  <a class="item" ng-click="pathToHome($event)">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item active">
+    Friends
+  </a>
+  <div class="right menu">
+    <a class="ui item" ng-click="logOut($event)">
+      Logout
+    </a>
+  </div>
+</div>
+<div class="ui link grid cards items">
+  <div class="card two wide computer four wide tablet column" ng-repeat="user in users track by $index" ng-click="openFriendProfile(user)">
+    <div ng-class="{'online': user.online}" class="image tiny">
+      <img src="https://randomuser.me/api/portraits/lego/0.jpg">
+    </div>
+    <div class="content">
+      <div class="header">{{user.name}}</div>
+      <div class="meta">
+        <a>Friends</a>
+      </div>
+      <div class="description">
+        {{user.email}}
+      </div>
+    </div>
+    <div class="extra content">
+      
+    </div>
+  </div>
+</div>

@@ -4,7 +4,8 @@ app.controller('registerController', function ($scope, AuthService, $location, $
       name: $scope.name,
       username: $scope.username,
       email: $scope.email,
-      password: $scope.password
+      password: $scope.password,
+      online: false
     }
 
     console.log(user);

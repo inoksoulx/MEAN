@@ -1,35 +1,25 @@
-app.controller("profileController", function($scope, AuthService, $location) {
-  $scope.authFlag = false;
-
+app.controller("profileController", function(
+  $scope,
+  AuthService,
+  $location,
+  $http
+) {
   $scope.onInit = function() {
-    AuthService.getUser(
-      function(res) {
-        $scope.user = res.data.user;
-        $scope.authFlag = true;
-
-        var socket = io();
-
-        socket.emit("chat message", 'bau');
-      },
-      function(err) {
-        $scope.authFlag = false;
-        console.log(err);
-      }
-    );
+    $scope.user = AuthService.user;
   };
 
-  $scope.navToHome = function($event) {
-    $location.path("/");
+  $scope.pathToFriens = function($event) {
+    $location.path($location.url() + "/friends");
     $event.preventDefault();
   };
 
-  $scope.navToRegister = function($event) {
-    $location.path("register");
+  $scope.pathToHome = function($event) {
+    $location.path($location.url().slice(0, -8));
     $event.preventDefault();
   };
 
   $scope.logOut = function($event) {
-    AuthService.logOut();
+    AuthService.logOut($scope.user.id);
     $location.path("/");
 
     $event.preventDefault();

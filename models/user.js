@@ -18,6 +18,9 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  online: {
+    type: Boolean
   }
 });
 
@@ -25,6 +28,10 @@ const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getUserById = function(id, callback){
   User.findById(id, callback);
+}
+
+module.exports.getAllUsers = function (callback) {
+  User.find(callback);
 }
 
 module.exports.getUserByUsername = function(username, callback){
