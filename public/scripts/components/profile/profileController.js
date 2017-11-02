@@ -1,27 +1,27 @@
 app.controller("profileController", function(
   $scope,
   AuthService,
-  $location,
-  $http
+  $route,
+  socket
 ) {
+  $scope.user = [];
+  
   $scope.onInit = function() {
-    $scope.user = AuthService.user;
+    AuthService.getDataUser(function (res) {
+      $scope.user = res.data.user;
+      socket.emit('online', $scope.user._id);
+      if (Object.keys($scope.user).length < 7) {
+        $scope.fullInfoFlag = true;
+      } else {
+        $scope.fullInfoFlag = false;
+      }
+    })
   };
 
-  $scope.pathToFriens = function($event) {
-    $location.path($location.url() + "/friends");
-    $event.preventDefault();
-  };
+  socket.on('onlineUsers', function (data) {
+    console.log(data);
+  })
 
-  $scope.pathToHome = function($event) {
-    $location.path($location.url().slice(0, -8));
-    $event.preventDefault();
-  };
 
-  $scope.logOut = function($event) {
-    AuthService.logOut($scope.user.id);
-    $location.path("/");
-
-    $event.preventDefault();
-  };
+  $scope.active = $route.current.$$route.activeTab;
 });

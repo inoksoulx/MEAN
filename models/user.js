@@ -4,9 +4,6 @@ const config = require('../config/database');
 
 // User Schema
 const UserSchema = mongoose.Schema({
-  name: {
-    type: String
-  },
   email: {
     type: String,
     required: true
@@ -21,8 +18,28 @@ const UserSchema = mongoose.Schema({
   },
   online: {
     type: Boolean
+  },
+  firstname: {
+    type: String
+  },
+  surname: {
+    type: String
+  },
+  lastname: {
+    type: String
+  },
+  info: {
+    type: String
+  },
+  number: {
+    type: String
+  },
+  avatar: {
+    type: String
   }
 });
+
+
 
 const User = module.exports = mongoose.model('User', UserSchema);
 

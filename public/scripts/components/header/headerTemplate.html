@@ -1,0 +1,19 @@
+<div class="ui secondary pointing menu" style="margin: 5px 0 15px 15px">
+  <a class="item" ng-click="pathToHome($event)" ng-class="{ active: active == 'profile'}">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item" ng-click="pathToFriends($event)" ng-class="{ active: active == 'friends'}">
+    Friends
+  </a>
+  <a class="item" ng-click="pathToSettings($event)" ng-class="{ active: active == 'settings'}">
+    Settings
+  </a>
+  <div class="right menu">
+    <a class="ui item" ng-click="logOut($event)">
+      Logout
+    </a>
+  </div>
+</div>

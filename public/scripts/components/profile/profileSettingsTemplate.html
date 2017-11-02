@@ -1,0 +1,39 @@
+<page-header></page-header>
+<div class="ui grid segment" style="max-width: 860px; margin: 50px 0 0 50px">
+  <div class="six wide column">
+    <h2>Add aditional info.</h2>
+    <form class="ui form" ng-submit="sendDataUser()">
+      <div class="field">
+        <label>First Name</label>
+        <input type="text" name="first-name" placeholder="First Name" ng-model="firstname">
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <input type="text" name="last-name" placeholder="Last Name" ng-model="lastname">
+      </div>
+      <div class="field">
+        <label>Surname</label>
+        <input type="text" name="sur-name" placeholder="Surname" ng-model="surname">
+      </div>
+      <div class="field">
+        <label>Telephone number</label>
+        <input type="tel" name="telephone-number" placeholder="Number" ng-model="number">
+      </div>
+      <div class="field">
+        <label>Other</label>
+        <textarea ng-model="info"></textarea>
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="six wide column">
+    <h2>Add Photo.</h2>
+    <form class="ui form" ng-submit="sendDataPhoto()">
+      <div class="field">
+        <label>Photo</label>
+        <input type="file" name="avatar" placeholder="Add Photo" file-model="file">
+      </div>
+      <button class="ui button" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

@@ -11,26 +11,11 @@
   }
 </style>
 
-<div class="ui secondary pointing menu" style="margin: 5px 0 15px 15px">
-  <a class="item" ng-click="pathToHome($event)">
-    Home
-  </a>
-  <a class="item">
-    Messages
-  </a>
-  <a class="item active">
-    Friends
-  </a>
-  <div class="right menu">
-    <a class="ui item" ng-click="logOut($event)">
-      Logout
-    </a>
-  </div>
-</div>
-<div class="ui link grid cards items">
+<page-header></page-header>
+<!-- <div class="ui link grid cards items" style="margin: 10px 30px">
   <div class="card two wide computer four wide tablet column" ng-repeat="user in users track by $index" ng-click="openFriendProfile(user)">
     <div ng-class="{'online': user.online}" class="image tiny">
-      <img src="https://randomuser.me/api/portraits/lego/0.jpg">
+      <img ng-src="{{user.avatar}}">
     </div>
     <div class="content">
       <div class="header">{{user.name}}</div>
@@ -45,4 +30,18 @@
       
     </div>
   </div>
-</div>
+</div> -->
+
+<div class="ui items" style="margin: 10px 30px">
+  <div class="item" ng-repeat="user in users track by $index" ng-click="openFriendProfile(user)">
+    <a class="ui tiny image">
+      <img ng-src="{{user.avatar}}">
+    </a>
+    <div class="content">
+      <a class="header">{{user.firstname}} {{user.lastname}}</a>
+      <div class="description">
+        <p>{{user.info}}</p>
+      </div>
+    </div>
+  </div>
+  

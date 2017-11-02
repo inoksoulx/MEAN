@@ -6,6 +6,7 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const config = require("./config/database");
 const cluster = require("cluster");
+const User = require("./models/user");
 
 // Connect To Database
 
@@ -18,9 +19,7 @@ const users = require("./routes/users");
 const app = express();
 
 const http = require("http").Server(app);
-const io = require('socket.io')(http, {'transports': ['websocket', 'polling']});
-
-
+const io = require("socket.io")(http, { transports: ["websocket", "polling"] });
 
 // Port Number
 const port = process.env.PORT || 8080;
@@ -51,16 +50,48 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
+let usersOnline = {};
+
 io.on("connection", function(socket) {
-  socket.on("online", function(user) {
-    io.emit("online", user);
+  socket.on("online", function(id) {
+    if (id in usersOnline) {
+      return false;
+    } else {
+      socket.id = id;
+      usersOnline[socket.id] = socket;
+
+      User.findByIdAndUpdate(
+        id,
+        { $set: { online: true } },
+        { new: true },
+        function(err, user) {
+          if (err) console.log(err);;
+        }
+      );
+    }
   });
-  socket.on("disconnect", function(user) {
-    console.log("user disconnected" + user);
+
+  function updateOnline() {
+    User.find((err, users) => {
+      if (err) console.log(err);
+      io.sockets.emit("onlineUsers", '123');
+      console.log(users);
+    });
+  }
+
+  socket.on("disconnect", function() {
+    if (!socket.id) return;
+    User.findByIdAndUpdate(
+      usersOnline[socket.id],
+      { $set: { online: false } },
+      { new: true },
+      function(err, user) {
+        if (err) console.log(err);;
+        updateOnline();
+      }
+    );
   });
 });
-
-
 
 // Start Server
 http.listen(port, function() {

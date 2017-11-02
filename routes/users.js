@@ -4,15 +4,47 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const config = require("../config/database");
 const User = require("../models/user");
+const multer = require("multer");
+
+// Multer settings
+
+const storage = multer.diskStorage({
+  destination: function(req, file, callback) {
+    callback(null, "./public/img/");
+  },
+  filename: function(req, file, callback) {
+    callback(null, file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage }).single("file");
+
+router.post("/uploadavatar", function(req, res) {
+  upload(req, res, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      User.findByIdAndUpdate(
+        req.body.id,
+        { $set: { avatar: 'img/' + req.file.originalname } },
+        { new: true },
+        (err, user) => {
+          if (err) return handleError(err);
+          res.json({ success: true, msg: "Avatar changed." });
+        }
+      );
+    }
+  });
+});
 
 // Register
 router.post("/register", (req, res, next) => {
   let newUser = new User({
-    name: req.body.name,
     email: req.body.email,
     username: req.body.username,
     password: req.body.password,
-    online: req.body.online
+    online: req.body.online,
+    avatar: "img/camera.png"
   });
 
   User.addUser(newUser, (err, user) => {
@@ -38,16 +70,24 @@ router.post("/allusers", (req, res, next) => {
   });
 });
 
+router.post("/getuser", (req, res, next) => {
+  User.findById(req.body.id, (err, user) => {
+    if (err) res.send(err);
+
+    res.json({ user });
+  });
+});
+
 router.post("/logout", (req, res, next) => {
   User.findByIdAndUpdate(
-      req.body.id,
-      { $set: { online: false } },
-      { new: true },
-      function(err, user) {
-        if (err) return handleError(err);
-        res.json({ success: true, msg: "Logout" })
-      }
-    );
+    req.body.id,
+    { $set: { online: false } },
+    { new: true },
+    function(err, user) {
+      if (err) return handleError(err);
+      res.json({ success: true, msg: "Logout" });
+    }
+  );
 });
 
 // Authenticate
@@ -60,7 +100,6 @@ router.post("/authenticate", (req, res, next) => {
     if (!user) {
       return res.json({ success: false, msg: "User not found" });
     }
-
     User.comparePassword(password, user.password, (err, isMatch) => {
       if (err) throw err;
       if (isMatch) {
@@ -76,16 +115,10 @@ router.post("/authenticate", (req, res, next) => {
             expiresIn: 604800 // 1 week
           }
         );
-
         res.json({
           success: true,
           token: "JWT " + token,
-          user: {
-            id: user._id,
-            name: user.name,
-            username: user.username,
-            email: user.email
-          }
+          user: user
         });
       } else {
         return res.json({ success: false, msg: "Wrong password" });
@@ -99,24 +132,34 @@ router.get(
   "/profile",
   passport.authenticate("jwt", { session: false }),
   (req, res, next) => {
-    User.findByIdAndUpdate(
-      req.user._id,
-      { $set: { online: true } },
-      { new: true },
-      function(err, user) {
-        if (err) return handleError(err);
-        res.json({
-          user: {
-            name: req.user.name,
-            username: req.user.username,
-            email: req.user.email,
-            id: req.user._id
-          }
-        });
+    if (err) return handleError(err);
+    res.json({
+      user: {
+        username: req.user.username,
+        id: req.user._id
       }
-    );
+    });
   }
 );
 
+router.post("/addinfo", (req, res, next) => {
+  User.findByIdAndUpdate(
+    req.body.id,
+    {
+      $set: {
+        firstname: req.body.firstname,
+        surname: req.body.surname,
+        lastname: req.body.lastname,
+        number: req.body.number,
+        info: req.body.info
+      }
+    },
+    { new: true },
+    function(err, user) {
+      if (err) return handleError(err);
+      res.json({ success: true, msg: "Info add" });
+    }
+  );
+});
 
 module.exports = router;

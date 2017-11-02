@@ -3,36 +3,22 @@ app.controller("friendController", function(
   $location,
   $http,
   socket,
-  $routeParams
+  friendDataTransportService,
+  $route,
+  AuthService
 ) {
-   var req = {
-    method: "POST",
-    url: "users/allusers",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    data: { id: (_id = JSON.parse(localStorage.getItem("user")).id) }
-  };
-
-  $scope.users = [];
-
-  $http(req).then(function(res) {
-    $scope.users = res.data.users
+  AuthService.getAllUsers(function(res) {
+    $scope.users = res.data.users;
   });
 
-  console.log($routeParams);
-
-  socket.emit("online", 'id');
-  socket.on("online", function(id) {
-    console.log(id);
+  socket.on("onlineUsers", function(data) {
+    console.log(data);
   });
+
+  $scope.active = $route.current.$$route.activeTab;
 
   $scope.openFriendProfile = function(user) {
-    console.log(user);
-  }
-
-  $scope.pathToHome = function($event) {
-    $location.path($location.url().slice(0, -8));
-    $event.preventDefault();
+    friendDataTransportService.setData(user);
+    $location.path($location.url() + "/" + user.username);
   };
 });

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app"
+    "start": "nodemon entry"
   },
   "dependencies": {
     "bcryptjs": "*",
@@ -19,5 +19,8 @@
     "socket.io": "^2.0.4"
   },
   "author": "GS",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
 }

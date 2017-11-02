@@ -1,11 +1,10 @@
 app.controller('registerController', function ($scope, AuthService, $location, $timeout) {
   $scope.registerUser = function () {
     var user = {
-      name: $scope.name,
       username: $scope.username,
       email: $scope.email,
       password: $scope.password,
-      online: false
+      online: false,
     }
 
     console.log(user);
